@@ -1,0 +1,100 @@
+﻿@page "/learnBlazor/bindprop"
+
+<div class="row">
+    <div class="col-6 border p-3">
+        <h3 class="text-primary">Product Details</h3>
+        <hr />
+        Is Active: <input type="checkbox" @bind="@_product.IsActive" @bind:event="oninput" />
+        <br />
+        Input Price: <input type="number" @bind="@_product.Price" @bind:event="oninput" />
+        <br />
+        <br />
+        Product Properties:
+        <select @bind="_selectedProperty">
+            @foreach (var prop in _product.ProductProperties)
+            {
+                <option value="@prop.Key">@prop.Key</option>
+            }
+        </select>
+    </div>
+    <div class="col-6 border p-3">
+        <h3 class="text-primary">Product Summary</h3>
+        <hr />
+        Name: @_product.Name<br />
+        Is Active: @_product.IsActive
+        <br />
+        Price: @_product.Price.ToString("C")
+        <br />
+        This product is: @(_product.IsActive ? "Active" : "Inactive")<br />
+        Selected Property: @_selectedProperty <br />
+        @if (!string.IsNullOrWhiteSpace(_selectedProperty))
+        {
+            <p>Selected Property: @_product.ProductProperties.FirstOrDefault(p => p.Key == _selectedProperty).Value</p>
+        }
+    </div>
+</div>
+
+@code {
+    private string _selectedProperty = string.Empty;
+
+    Product _product = new()
+    {
+        Id = 1,
+        Name = "Product 1",
+        Price = 5,
+        IsActive = true,
+        ProductProperties = [
+            new ProductProperty() { Id = 1, Key = "Color", Value = "Red"},
+            new ProductProperty() { Id = 1, Key = "Color", Value = "Green"},
+            new ProductProperty() { Id = 1, Key = "Color", Value = "Blue"},
+            new ProductProperty() { Id = 2, Key = "Size", Value = "Small"},
+            new ProductProperty() { Id = 2, Key = "Size", Value = "Medium"},
+            new ProductProperty() { Id = 2, Key = "Size", Value = "Large"},
+            new ProductProperty() { Id = 2, Key = "Flavor", Value = "Strawberry"},
+            new ProductProperty() { Id = 2, Key = "Flavor", Value = "Lemon"},
+            new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
+        ]
+    };
+
+    List<Product> ProductList = [];
+
+    protected override void OnInitialized()
+    {
+        ProductList.Add(new Product()
+        {
+            Id = 1,
+            Name = "Midnight Blaze",
+            IsActive = false,
+            ProductProperties = [
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Red"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Green"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Blue"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Small"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Medium"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Large"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Strawberry"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Lemon"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
+            ]
+        });
+
+        ProductList.Add(new Product()
+        {
+            Id = 2,
+            Name = "Blossom Lily",
+            IsActive = true,
+            ProductProperties = [
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Red"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Green"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Blue"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Small"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Medium"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Large"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Strawberry"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Lemon"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
+            ]
+        });
+    }
+
+}
