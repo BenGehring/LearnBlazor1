@@ -1,0 +1,73 @@
+﻿@page "/LearnBlazor/demoproduct"
+
+<h3 class="text-primary">Demo Product</h3>
+
+<div class="border p-2 mt-2 bg-secondary">
+    <div class="row">
+        @foreach(var prod in ProductList)
+        {
+            <div class="bg-light col-6 border">
+                <h4 class="text-secondary">Product - @prod.Id</h4>
+                Name - @prod.Name<br/>
+                Show Properties <input type="checkbox" @bind="prod.IsActive"/>
+                
+                @if (prod.IsActive)
+                {
+                    @foreach (var prop in prod.ProductProperties)
+                    {
+                        <p>@prop.Key - @prop.Value</p>
+                    }
+                }
+            </div>
+            <br/>
+            <input type="button" value="Delete" class="btn btn-danger" style="width: 100px;"/>
+        }
+    </div>
+</div>
+
+@code {
+    private bool _showProperties = false;
+    List<Product> ProductList = [];
+
+    protected override void OnInitialized()
+    {
+        ProductList.Add(new Product()
+        {
+            Id = 1,
+            Name = "Midnight Blaze",
+            Price = 5.99,
+            IsActive = false,
+            ProductProperties = [
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Red"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Green"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Blue"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Small"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Medium"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Large"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Strawberry"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Lemon"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
+            ]
+        });
+
+        ProductList.Add(new Product()
+        {
+            Id = 2,
+            Name = "Blossom Lily",
+            Price = 10.59,
+            IsActive = true,
+            ProductProperties = [
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Red"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Green"},
+                new ProductProperty() { Id = 1, Key = "Color", Value = "Blue"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Small"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Medium"},
+                new ProductProperty() { Id = 2, Key = "Size", Value = "Large"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Strawberry"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Lemon"},
+                new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
+            ]
+        });
+    }
+
+}
