@@ -18,9 +18,9 @@
                         <p>@prop.Key - @prop.Value</p>
                     }
                 }
+                <br/>
+                <input type="button" value="Delete" class="btn btn-danger" style="width: 100px;" @onclick="()=>DeleteButton_Click(prod.Id)" />
             </div>
-            <br/>
-            <input type="button" value="Delete" class="btn btn-danger" style="width: 100px;"/>
         }
     </div>
 </div>
@@ -68,6 +68,15 @@
                 new ProductProperty() { Id = 2, Key = "Flavor", Value = "Chocolate"},
             ]
         });
+    }
+
+    private void DeleteButton_Click(int id)
+    {
+        var prod = ProductList.FirstOrDefault(p => p.Id == id);
+
+        if (prod == null) return;
+
+        ProductList.Remove(prod);
     }
 
 }
