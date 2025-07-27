@@ -46,8 +46,8 @@
                 @foreach (var prod in ProductList)
                 {
                     <tr>
-                        <td><input type="text" @bind="@prod.Name" /></td>
-                        <td><input type="text" @bind="@prod.Price" /></td>
+                        <td><input type="text" @bind="@prod.Name" @bind:event="oninput" /></td>
+                        <td><input type="text" @bind="@prod.Price" @bind:event="oninput" /></td>
                         <td><input type="checkbox" @bind="@prod.IsActive" /></td>
                     </tr>
                 }
