@@ -3,13 +3,13 @@
 <h3 class="text-primary">Demo Product</h3>
 
 <p>Favorite Count: @FavoriteCount</p>
-<p>Product Selected: @SelectedProductId</p>
+<p>Product Selected: @SelectedProductId - @SelectedProductName</p>
 
 <div class="border p-2 mt-2 bg-secondary">
     <div class="row">
         @foreach (var prod in ProductList)
         {
-            <_ProductDetailsComponent Product="@prod" 
+            <_ProductDetailsComponent Product="@prod"
                                       OnFavoriteUpdated="FavoriteCountChanged"
                                       OnProductClicked="ProductSelected"></_ProductDetailsComponent>
         }
@@ -20,6 +20,8 @@
     private bool _showProperties = false;
     public int FavoriteCount { get; set; } = 0;
     public int SelectedProductId { get; set; }
+    public string SelectedProductName { get; set; }
+
     List<Product> ProductList = [];
 
     protected override void OnInitialized()
@@ -78,6 +80,7 @@
     protected void ProductSelected(Product product)
     {
         SelectedProductId = product.Id;
+        SelectedProductName = product.Name;
     }
 
     private void DeleteButton_Click(int id)

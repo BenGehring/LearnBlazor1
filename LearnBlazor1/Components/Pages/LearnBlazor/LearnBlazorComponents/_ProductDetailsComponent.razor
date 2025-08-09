@@ -1,4 +1,4 @@
-﻿<div class="bg-light col-6 border" @onclick="ProductSelected">
+﻿<div class="bg-light col-6 border" @onclick="(args) => ProductSelected(args, Product.Name)">
     <h4 class="text-secondary">Product - @Product.Id</h4>
     
     <input type="checkbox" @onchange="FavoriteUpdated"/> Add to Favorites<br/><br/>
@@ -17,7 +17,8 @@
     <_DeleteButtonComponent Id="@Product.Id"></_DeleteButtonComponent>
 </div>
 
-@code {
+
+@code { 
 
     [Parameter]
     public Product Product { get; set; }
@@ -25,7 +26,7 @@
     private async Task FavoriteUpdated(ChangeEventArgs e) => 
         await OnFavoriteUpdated.InvokeAsync((bool)(e.Value ?? false));
 
-    private async Task ProductSelected(MouseEventArgs e) =>
+    private async Task ProductSelected(MouseEventArgs e, string productName) =>
         await OnProductClicked.InvokeAsync(Product);
 
     [Parameter]
