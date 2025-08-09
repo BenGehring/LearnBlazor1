@@ -2,17 +2,22 @@
 
 <h3>Parent Component</h3>
 
-<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter from parent component.">
-    Some text between the tags frm parent component.
-</_ChildComponent>
+<CascadingValue Value="@_messageForGrandchild" Name="MessageForGrandchild">
+    <CascadingValue Value="@_randomNumber" Name="RandomNumber">
+        <_ChildComponent OnButtonClick="ShowMessage"
+                         Title="This title is passed as a parameter from parent component.">
+            Some text between the tags frm parent component.
+        </_ChildComponent>
+    </CascadingValue>
+</CascadingValue>
 
 <p>@messageText</p>
 
-<_ChildComponent Title="This title is passed as a parameter from parent component.">
-    
-</_ChildComponent>
-
 @code {
+
+    private string _messageForGrandchild = "This message is passed from parent component to the grand child.";
+    private int _randomNumber = 7;
+
     public string messageText = "";
 
     private void ShowMessage()

@@ -1,9 +1,13 @@
 ﻿<div class="row">
     <h4 class="text-primary pl-4 pt-2 col-12">Grand child component</h4>
     <p>@MessageForGrandchild</p>
+    <p>Random number: @RandomNumber</p>
 </div>
 
 @code {
-    [Parameter]
+    [CascadingParameter(Name="MessageForGrandchild")]
     public string MessageForGrandchild { get; set; }
+    
+    [CascadingParameter(Name="RandomNumber")]
+    public int RandomNumber { get; set; }
 }
