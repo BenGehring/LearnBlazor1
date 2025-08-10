@@ -1,0 +1,62 @@
+﻿@page "/learnrouting"
+@page "/learnrouting/{Param1}"
+@page "/learnrouting/{Param1}/{Param2}"
+@page "/learnrouting/catch-all/{*Params}"
+
+@inject NavigationManager _navigationManager;
+
+<h3>LearnRouting</h3>
+@if (!string.IsNullOrWhiteSpace(Param1))
+{
+    <p>Random Number: @Param1</p>
+}
+
+@if (!string.IsNullOrWhiteSpace(Param2))
+{
+    <p>Random Number: @Param2</p>
+}
+
+@if (!string.IsNullOrWhiteSpace(Param3))
+{
+    <p>Param3: @Param3</p>
+}
+
+@if (!string.IsNullOrWhiteSpace(Param4))
+{
+    <p>Param4: @Param4</p>
+}
+
+@if (!string.IsNullOrWhiteSpace(Params))
+{
+    <p>Params: @Params</p>
+}
+
+<NavLink href="learnrouting?Param3=7&Param4=10">Show ME!</NavLink>
+
+@code {
+    [Parameter] public string Param1 { get; set; }
+
+    [Parameter] public string Param2 { get; set; }
+
+    [SupplyParameterFromQuery] public string Param3 { get; set; }
+
+    [SupplyParameterFromQuery] public string Param4 { get; set; }
+
+    [Parameter] public string Params { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        LoadParameters();
+    }
+
+    private void LoadParameters()
+    {
+        var uri = new Uri(_navigationManager.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+        if (!query.Any()) return;
+
+        Param1 = query["Param1"].ToString();
+        Param2 = query["Param2"].ToString();
+    }
+}
